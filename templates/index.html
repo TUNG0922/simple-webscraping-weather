@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Malaysia Weather</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 30px;
+      background: #f0f4f8;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    }
+
+    .temp {
+      font-size: 32px;
+      font-weight: bold;
+      color: #0077b6;
+      margin: 5px 0;
+    }
+
+    .condition {
+      font-size: 18px;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    ul li {
+      padding: 3px 0;
+      font-size: 14px;
+    }
+
+    .icon {
+      font-size: 28px;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
+    .no-details {
+      font-style: italic;
+      color: #999;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🌤 Malaysia Weather</h1>
+
+  <div class="grid">
+    {% for w in all_weather %}
+      <div class="card">
+        <h2>{{ w.city }}</h2>
+        <p class="temp">{{ w.temperature }} <span class="icon">{{ w.icon }}</span></p>
+        <p class="condition">{{ w.condition }}</p>
+
+        <h3>Details</h3>
+        {% if w.details %}
+          <ul>
+            {% for key, value in w.details.items() %}
+              <li><strong>{{ key }}:</strong> {{ value }}</li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="no-details">No additional weather details available.</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</body>
+</html>
